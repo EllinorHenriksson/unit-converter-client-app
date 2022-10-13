@@ -1,0 +1,28 @@
+{
+  "name": "unit-converter",
+  "version": "1.0.0",
+  "description": "1DV610 - Laboration 2 - Unit Converter",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EllinorHenriksson/unit-converter.git"
+  },
+  "author": "Ellinor Henriksson <eh224kr@student.lnu.se>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EllinorHenriksson/unit-converter/issues"
+  },
+  "homepage": "https://github.com/EllinorHenriksson/unit-converter#readme",
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.6",
+    "vite": "^3.1.8"
+  }
+}
