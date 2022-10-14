@@ -74,10 +74,13 @@ customElements.define('my-navbar',
       })
     }
 
+    /**
+     * Handles click events.
+     *
+     * @param {MouseEvent} event - The event object.
+     */
     #handleClick (event) {
       const targetId = event.target.getAttribute('id')
-
-      // Dispatches a custom event
       this.dispatchEvent(new window.CustomEvent('clickLink', { detail: { targetId }, bubbles: true }))
     }
   }

@@ -22,6 +22,10 @@ template.innerHTML = `
   .hidden {
     display: none;
   }
+
+  main {
+    padding: 1rem;
+  }
 </style>
 
 <div id="my-app">
