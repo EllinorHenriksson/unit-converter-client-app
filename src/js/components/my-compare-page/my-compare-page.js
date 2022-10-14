@@ -12,11 +12,17 @@ template.innerHTML = `
   #my-compare-page {
     width: 100%;
     box-sizing: border-box;
+    text-justify: center;
+  }
+
+  h1 {
+    text-justify: left;
+    color: orange;
   }
 </style>
 
 <div id="my-compare-page">
-  Compare page
+  <h1>Compare</h1>
 </div>
 `
 
