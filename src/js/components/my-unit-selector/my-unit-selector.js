@@ -5,6 +5,7 @@
  * @version 1.0.0
  */
 
+import helper from '../../helper'
 import { converter } from '../../../../modules/converter/src'
 
 // Define template.
@@ -67,16 +68,10 @@ customElements.define('my-unit-selector',
      */
     attributeChangedCallback (name, oldValue, newValue) {
       if (name === 'type' && newValue !== oldValue) {
-        this.#validateType(newValue)
+        helper.validateMeasurementType(newValue)
         this.#type = newValue
         this.#removeOptions()
         this.#addOptions()
-      }
-    }
-
-    #validateType (type) {
-      if (type !== 'length' && type !== 'time' && type !== 'weight' && type !== 'volume' && type !== 'speed') {
-        throw new Error('The attribute must be set to a string representing the available measurement types: length, time, weight, volume or speed. ')
       }
     }
 

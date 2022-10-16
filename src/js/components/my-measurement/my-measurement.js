@@ -5,6 +5,7 @@
  * @version 1.0.0
  */
 
+import helper from '../../helper'
 import '../my-unit-selector'
 
 // Define template.
@@ -80,7 +81,7 @@ customElements.define('my-measurement',
      */
     attributeChangedCallback (name, oldValue, newValue) {
       if (name === 'type' && newValue !== oldValue) {
-        this.#validateType(newValue)
+        helper.validateMeasurementType(newValue)
         this.#type = newValue
         this.shadowRoot.querySelector('my-unit-selector').setAttribute('type', newValue)
       }
@@ -92,12 +93,6 @@ customElements.define('my-measurement',
 
     get unit () {
       return this.shadowRoot.querySelector('my-unit-selector').unit
-    }
-
-    #validateType (type) {
-      if (type !== 'length' && type !== 'time' && type !== 'weight' && type !== 'volume' && type !== 'speed') {
-        throw new Error('The attribute must be set to a string representing the available measurement types: length, time, weight, volume or speed. ')
-      }
     }
 
     #handleInput (event) {
