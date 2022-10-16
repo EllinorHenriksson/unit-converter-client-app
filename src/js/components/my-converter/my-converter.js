@@ -5,6 +5,7 @@
  * @version 1.0.0
  */
 
+import { converter } from '../../../../modules/converter/src/index.js'
 import '../my-measurement'
 import '../my-unit-selector'
 
@@ -48,6 +49,7 @@ customElements.define('my-converter',
    */
   class extends HTMLElement {
     #type
+
     /**
      * Creates an instance of the current type.
      */
@@ -118,14 +120,37 @@ customElements.define('my-converter',
       if (this.shadowRoot.querySelectorAll('my-measurement').length === 0) {
         this.#addMeasurement()
       }
+
       this.#convert()
     }
 
     #convert () {
-      // TODO
-      console.log('convert');
-      const result = 0
+      const measurementElemets = this.shadowRoot.querySelectorAll('my-measurement')
+      const measurementObjects = []
+      measurementElemets.forEach(measurement => {
+        measurementObjects.push(this.#convertMeasurementToObject(measurement))
+      })
+
+      const newMeasurement = converter.mergeAllInto(measurementObjects, this.shadowRoot.querySelector('my-unit-selector').unit)
+      const result = newMeasurement.quantity
       this.shadowRoot.querySelector('#result').innerText = result
+    }
+
+    #convertMeasurementToObject (measurement) {
+      let measurementObject
+      if (measurement.getAttribute('type') === 'length') {
+        measurementObject = converter.length(measurement.quantity, measurement.unit)
+      } else if (measurement.getAttribute('type') === 'time') {
+        measurementObject = converter.time(measurement.quantity, measurement.unit)
+      } else if (measurement.getAttribute('type') === 'weight') {
+        measurementObject = converter.weight(measurement.quantity, measurement.unit)
+      } else if (measurement.getAttribute('type') === 'volume') {
+        measurementObject = converter.volume(measurement.quantity, measurement.unit)
+      } else if (measurement.getAttribute('type') === 'speed') {
+        measurementObject = converter.speed(measurement.quantity, measurement.unit)
+      }
+
+      return measurementObject
     }
 
     #clearConverter () {

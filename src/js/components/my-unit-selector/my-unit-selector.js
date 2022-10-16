@@ -85,6 +85,7 @@ customElements.define('my-unit-selector',
       for (const option of options) {
         select.appendChild(option)
       }
+      this.#unit = this.shadowRoot.querySelector('select').value
     }
 
     #generateUnitOptions () {

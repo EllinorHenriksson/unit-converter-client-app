@@ -21,7 +21,7 @@ template.innerHTML = `
   <fieldset>
     <legend>Measurement</legend>
     <label>Quantity: 
-      <input type="text" name="quantity">
+      <input type="text" name="quantity" value="0">
     </label>
     <my-unit-selector type="length"></my-unit-selector>
   </fieldset>
@@ -44,6 +44,7 @@ customElements.define('my-measurement',
       super()
 
       this.#type = 'length'
+      this.#quantity = 0
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
