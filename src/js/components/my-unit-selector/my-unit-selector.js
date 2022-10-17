@@ -12,7 +12,13 @@ import { converter } from '../../../../modules/converter/src'
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+  select {
+    border: 1px solid orange;
+  }
 
+  select:focus {
+    outline: 1px solid orange;
+  }
 </style>
 
 <div id="my-unit-selector">

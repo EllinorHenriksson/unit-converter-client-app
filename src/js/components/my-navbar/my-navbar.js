@@ -32,6 +32,7 @@ template.innerHTML = `
     cursor: pointer;
     color: white;
     text-decoration: none;
+    font-weight: bold;
   }
 
   a:hover, a:active {

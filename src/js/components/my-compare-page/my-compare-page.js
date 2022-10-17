@@ -14,11 +14,11 @@ template.innerHTML = `
   #my-compare-page {
     width: 100%;
     box-sizing: border-box;
-    text-justify: center;
+    text-align: center;
   }
 
   h1 {
-    text-justify: left;
+    text-align: left;
     color: orange;
   }
 </style>

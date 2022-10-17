@@ -9,15 +9,30 @@ import '../my-measurement'
 import helper from '../../helper'
 import { converter } from '../../../../modules/converter/src'
 
+const ADD = new URL('./images/add.png', import.meta.url)
+
 // Define template.
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+  button {
+    background: no-repeat center/80% url("${ADD}");
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  button:hover, button:active {
+    cursor: pointer;
+  }
 </style>
 
 <div id="my-measurement-list">
   <my-measurement type="length"></my-measurement>
-  <button id="add">Add</button>
+  <button id="add"></button>
 </div>
 `
 

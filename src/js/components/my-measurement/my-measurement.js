@@ -8,12 +8,54 @@
 import helper from '../../helper'
 import '../my-unit-selector'
 
+const DELETE = new URL('./images/delete.png', import.meta.url)
+
 // Define template.
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+  #my-measurement {
+    position: relative;
+  }
+
   .invalid {
     background-color: red;
+  }
+
+  fieldset {
+    border: 2px solid orange;
+    border-radius: 5px;
+    background-color: rgb(244, 238, 228);
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  legend {
+    color: orange;
+    font-weight: bold;
+  }
+
+  input {
+    border: 1px solid orange;
+    width: 100px;
+  }
+
+  input:focus {
+    outline: 1px solid orange;
+  }
+
+  button {
+    background: no-repeat center/80% url("${DELETE}");
+    border: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  button:hover, button:active {
+    cursor: pointer;
   }
 </style>
 
@@ -25,7 +67,7 @@ template.innerHTML = `
     </label>
     <my-unit-selector type="length"></my-unit-selector>
   </fieldset>
-  <button>Remove</button>
+  <button></button>
 </div>
 `
 

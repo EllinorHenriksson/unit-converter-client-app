@@ -14,11 +14,9 @@ template.innerHTML = `
   #my-convert-page {
     width: 100%;
     box-sizing: border-box;
-    text-justify: center;
   }
 
   h1 {
-    text-justify: left;
     color: orange;
   }
 </style>

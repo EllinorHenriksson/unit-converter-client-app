@@ -12,6 +12,72 @@ import '../my-measurement-list'
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+  #my-converter {
+    max-width: 500px;
+    margin: auto;
+  }
+
+  #type {
+    background-color: wheat;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  select {
+    border: 1px solid orange;
+  }
+
+  select:focus {
+    outline: 1px solid orange;
+  }
+
+  fieldset {
+    border: none;
+    background-color: wheat;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+
+  legend {
+    color: orange;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 1rem;
+    color: orange;
+  }
+
+  #result {
+    background-color: wheat;
+    padding: 1rem;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: orange;
+    margin: 1rem auto;
+    overflow: auto;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: orange;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: 2px solid orange;
+    color: white;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  button:hover, button:active {
+    background-color: white;
+    color: orange;
+    cursor: pointer;
+  }
 </style>
 
 <div id="my-converter">
@@ -35,7 +101,7 @@ template.innerHTML = `
       <my-unit-selector type="length"></my-unit-selector>
     </fieldset>
     <h3>Result</h3>
-    <div id="result">0</div>
+    <p id="result">0</p>
     <button id="clear">Clear</button>
   </form>
 </div>
