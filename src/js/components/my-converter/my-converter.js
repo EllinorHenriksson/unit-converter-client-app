@@ -5,7 +5,6 @@
  * @version 1.0.0
  */
 
-import { converter } from '../../../../modules/converter/src/index.js'
 import '../my-unit-selector'
 import '../my-measurement-list'
 
@@ -17,7 +16,7 @@ template.innerHTML = `
 
 <div id="my-converter">
   <form id="type">
-    <label for="measurement-types">Select measurement type:</label>
+    <label for="measurement-types">Measurement type:</label>
     <select id="measurement-types" name="measurement-type">
       <option value="length">Length</option>
       <option value="time">Time</option>
@@ -75,7 +74,7 @@ customElements.define('my-converter',
 
       this.shadowRoot.querySelector('#clear').addEventListener('click', event => {
         event.preventDefault()
-        this.#clearConverter()
+        this.#clear()
       })
     }
 
@@ -93,7 +92,7 @@ customElements.define('my-converter',
       this.shadowRoot.querySelector('#result').innerText = merge.quantity
     }
 
-    #clearConverter () {
+    #clear () {
       this.shadowRoot.querySelector('my-measurement-list').clear()
       this.#removeUnitSelector()
       this.#addUnitSelector()

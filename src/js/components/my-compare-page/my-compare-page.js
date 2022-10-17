@@ -5,6 +5,8 @@
  * @version 1.0.0
  */
 
+import '../my-comparer'
+
 // Define template.
 const template = document.createElement('template')
 template.innerHTML = `
@@ -23,6 +25,7 @@ template.innerHTML = `
 
 <div id="my-compare-page">
   <h1>Compare</h1>
+  <my-comparer></my-comparer>
 </div>
 `
 
@@ -39,9 +42,6 @@ customElements.define('my-compare-page',
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
-
-      // Add event listeners.
-      //
     }
   }
 )

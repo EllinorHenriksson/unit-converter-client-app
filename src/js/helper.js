@@ -8,6 +8,13 @@ class Helper {
   }
 
   validateUnit (unit, type) {
+    const units = this.getUnits(type)
+    if (!units.includes(unit)) {
+      throw new Error(`The unit ${unit} is not a valid unit for the measurement type ${type}`)
+    }
+  }
+
+  getUnits (type) {
     let units
     if (type === 'length') {
       units = converter.lengthUnits
@@ -20,10 +27,7 @@ class Helper {
     } else if (type === 'speed') {
       units = converter.speedUnits
     }
-
-    if (!units.includes(unit)) {
-      throw new Error(`The unit ${unit} is not a valid unit for the measurement type ${type}`)
-    }
+    return units
   }
 }
 
