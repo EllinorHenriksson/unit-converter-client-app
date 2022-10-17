@@ -126,7 +126,7 @@ customElements.define('my-comparer',
 
       // Add event listeners.
       this.shadowRoot.querySelector('#measurement-types').addEventListener('change', event => {
-        this.#handleChangeSelect(event)
+        this.#handleChangeOfMeasurementType(event)
       })
 
       this.shadowRoot.querySelectorAll('my-measurement-list').forEach(list => {
@@ -141,7 +141,12 @@ customElements.define('my-comparer',
       })
     }
 
-    #handleChangeSelect (event) {
+    /**
+     * Handles changes on the select measurement type element.
+     *
+     * @param {InputEvent} event The event object.
+     */
+    #handleChangeOfMeasurementType (event) {
       this.#type = event.target.value
       this.shadowRoot.querySelectorAll('my-measurement-list').forEach(list => {
         list.setAttribute('type', this.#type)
@@ -150,6 +155,9 @@ customElements.define('my-comparer',
       this.#compare()
     }
 
+    /**
+     * Compares the two groups om measurements with eachother.
+     */
     #compare () {
       const unit = this.#getStandardUnit()
       const mergeA = this.shadowRoot.querySelector('#groupA my-measurement-list').getMerge(unit)
@@ -167,11 +175,19 @@ customElements.define('my-comparer',
       this.shadowRoot.querySelector('#result').innerText = text
     }
 
+    /**
+     * Gets the standard unit of the selected measurement type.
+     *
+     * @returns {string} The standard unit.
+     */
     #getStandardUnit () {
       const units = helper.getUnits(this.#type)
       return units[0]
     }
 
+    /**
+     * Clears the comparer from measurements.
+     */
     #clear () {
       this.shadowRoot.querySelectorAll('my-measurement-list').forEach(list => list.clear())
       this.#compare()

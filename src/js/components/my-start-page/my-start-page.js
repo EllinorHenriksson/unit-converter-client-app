@@ -67,6 +67,9 @@ customElements.define('my-start-page',
       //
     }
 
+    /**
+     * Appends the available measurement types to a list when the web component is mounted to the DOM.
+     */
     connectedCallback () {
       const measurementTypes = converter.measurementTypes
       const list = this.shadowRoot.querySelector('ul')
@@ -77,6 +80,9 @@ customElements.define('my-start-page',
       }
     }
 
+    /**
+     * Removes the measurement types from the list when the web component is unmounted.
+     */
     disconnectedCallback () {
       this.shadowRoot.querySelector('ul').innerHTML = ''
     }

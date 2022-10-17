@@ -88,6 +88,9 @@ customElements.define('my-measurement-list',
       }
     }
 
+    /**
+     * Clears the list from measurements.
+     */
     clear () {
       this.shadowRoot.querySelectorAll('my-measurement').forEach(measurement => {
         measurement.remove()
@@ -96,6 +99,11 @@ customElements.define('my-measurement-list',
       this.#addMeasurement()
     }
 
+    /**
+     * Adds event listeners to a my-measurement custom element.
+     *
+     * @param {HTMLElement} measurement The my-measurement element.
+     */
     #addEventListenersToMeasurement (measurement) {
       measurement.addEventListener('quantityInput', () => {
         this.#dispatchUpdateEvent()
@@ -108,12 +116,23 @@ customElements.define('my-measurement-list',
       })
     }
 
+    /**
+     * Gets a merge of all the measurements contained in the list, in a specific unit.
+     *
+     * @param {string} unit The unit to merge the measurements into.
+     * @returns {object} A measurement object.
+     */
     getMerge (unit) {
       helper.validateUnit(unit, this.#type)
       const measurements = this.#getMeasurementsAsObjects()
       return converter.mergeAllInto(measurements, unit)
     }
 
+    /**
+     * Creates measurement objects from the measurement elements in the list and returns them in an array.
+     *
+     * @returns {object[]} The array of measurement objects.
+     */
     #getMeasurementsAsObjects () {
       const measurementElemets = this.shadowRoot.querySelectorAll('my-measurement')
       const measurementObjects = []
@@ -123,6 +142,12 @@ customElements.define('my-measurement-list',
       return measurementObjects
     }
 
+    /**
+     * Converts a measurement element into a measurement object and returns it.
+     *
+     * @param {HTMLElement} measurement The my-measurement element.
+     * @returns {object} The resulting measurement object.
+     */
     #convertMeasurementToObject (measurement) {
       let measurementObject
       if (measurement.getAttribute('type') === 'length') {
@@ -140,6 +165,11 @@ customElements.define('my-measurement-list',
       return measurementObject
     }
 
+    /**
+     * Removes a measurement from the list.
+     *
+     * @param {HTMLElement} measurement The my-measurement custom element.
+     */
     #removeMeasurement (measurement) {
       measurement.remove()
       if (this.shadowRoot.querySelectorAll('my-measurement').length === 0) {
@@ -149,6 +179,9 @@ customElements.define('my-measurement-list',
       this.#dispatchUpdateEvent()
     }
 
+    /**
+     * Adds a measurement to the list.
+     */
     #addMeasurement () {
       const measurement = document.createElement('my-measurement')
       measurement.setAttribute('type', this.#type)
@@ -157,6 +190,9 @@ customElements.define('my-measurement-list',
       parent.insertBefore(measurement, parent.lastElementChild)
     }
 
+    /**
+     * Dispatches a custom event that lets the parent element know that the list has been updated in some way.
+     */
     #dispatchUpdateEvent () {
       this.dispatchEvent(new CustomEvent('update', { bubbles: true }))
     }

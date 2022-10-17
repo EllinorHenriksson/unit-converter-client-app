@@ -76,7 +76,7 @@ customElements.define('my-navbar',
     }
 
     /**
-     * Handles click events.
+     * Handles click events on the links in the navbar.
      *
      * @param {MouseEvent} event - The event object.
      */
@@ -86,16 +86,21 @@ customElements.define('my-navbar',
       this.dispatchEvent(new window.CustomEvent('clickLink', { detail: { targetId }, bubbles: true }))
     }
 
-    #colorClickedLink (targetId) {
-      this.shadowRoot.getElementById(targetId).classList.add('active')
+    /**
+     * Colors the clicked, active link.
+     *
+     * @param {string} linkId The id of the clicked link element.
+     */
+    #colorClickedLink (linkId) {
+      this.shadowRoot.getElementById(linkId).classList.add('active')
 
-      if (targetId === 'nav-start-page') {
+      if (linkId === 'nav-start-page') {
         this.shadowRoot.getElementById('nav-convert-page').classList.remove('active')
         this.shadowRoot.getElementById('nav-compare-page').classList.remove('active')
-      } else if (targetId === 'nav-convert-page') {
+      } else if (linkId === 'nav-convert-page') {
         this.shadowRoot.getElementById('nav-start-page').classList.remove('active')
         this.shadowRoot.getElementById('nav-compare-page').classList.remove('active')
-      } else if (targetId === 'nav-compare-page') {
+      } else if (linkId === 'nav-compare-page') {
         this.shadowRoot.getElementById('nav-start-page').classList.remove('active')
         this.shadowRoot.getElementById('nav-convert-page').classList.remove('active')
       }

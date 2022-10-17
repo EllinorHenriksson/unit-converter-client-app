@@ -59,9 +59,9 @@ customElements.define('my-app',
     }
 
     /**
-     * Handles click events from the navbar component.
+     * Handles clickLink events from the navbar component.
      *
-     * @param {*} event 
+     * @param {CustomEvent} event The event object.
      */
     #handleClickLink (event) {
       const targetId = event.detail.targetId
@@ -75,18 +75,27 @@ customElements.define('my-app',
       }
     }
 
+    /**
+     * Shows the start "page" of the application.
+     */
     #showStartPage () {
       this.shadowRoot.querySelector('my-start-page').classList.remove('hidden')
       this.shadowRoot.querySelector('my-convert-page').classList.add('hidden')
       this.shadowRoot.querySelector('my-compare-page').classList.add('hidden')
     }
 
+    /**
+     * Shows the convert "page" of the application.
+     */
     #showConvertPage () {
       this.shadowRoot.querySelector('my-convert-page').classList.remove('hidden')
       this.shadowRoot.querySelector('my-start-page').classList.add('hidden')
       this.shadowRoot.querySelector('my-compare-page').classList.add('hidden')
     }
 
+    /**
+     * Shows the compare "page" of the application.
+     */
     #showComparePage () {
       this.shadowRoot.querySelector('my-compare-page').classList.remove('hidden')
       this.shadowRoot.querySelector('my-start-page').classList.add('hidden')

@@ -130,14 +130,29 @@ customElements.define('my-measurement',
       }
     }
 
+    /**
+     * Gets the quantity of the measurement.
+     *
+     * @returns {number} The quantity.
+     */
     get quantity () {
       return this.#quantity
     }
 
+    /**
+     * Gets the unit of the measurement.
+     *
+     * @returns {string} The unit.
+     */
     get unit () {
       return this.shadowRoot.querySelector('my-unit-selector').unit
     }
 
+    /**
+     * Handles input from the user by validating it, giving the user visual feedback, setting the quantity and dispatching a custom event.
+     *
+     * @param {InputEvent} event The event object.
+     */
     #handleInput (event) {
       try {
         this.#validateInput(event.target.value)
@@ -149,6 +164,12 @@ customElements.define('my-measurement',
       }
     }
 
+    /**
+     * Validates input.
+     *
+     * @param {string} input The input.
+     * @throws {Error} Throws an error if the input is not a number or if it is a negative number.
+     */
     #validateInput (input) {
       const value = Number(input)
       if (isNaN(value) || value < 0) {
@@ -156,10 +177,16 @@ customElements.define('my-measurement',
       }
     }
 
+    /**
+     * Handles the custom event unitChange from the unit selector by dispatching a new custom event.
+     */
     #handleUnitChange () {
       this.dispatchEvent(new CustomEvent('unitChange', { bubbles: true }))
     }
 
+    /**
+     * Handles click events on the remove button by dispatching a custom event.
+     */
     #handleClick () {
       this.dispatchEvent(new CustomEvent('removeMeasurement', { bubbles: true }))
     }

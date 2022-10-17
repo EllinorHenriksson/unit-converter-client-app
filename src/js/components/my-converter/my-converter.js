@@ -127,7 +127,7 @@ customElements.define('my-converter',
 
       // Add event listeners.
       this.shadowRoot.querySelector('#measurement-types').addEventListener('change', event => {
-        this.#handleChangeSelect(event)
+        this.#handleChangeOfMeasurementType(event)
       })
 
       this.shadowRoot.querySelector('my-measurement-list').addEventListener('update', () => {
@@ -144,7 +144,12 @@ customElements.define('my-converter',
       })
     }
 
-    #handleChangeSelect (event) {
+    /**
+     * Handles changes on the select measurement type element.
+     *
+     * @param {InputEvent} event The event object.
+     */
+    #handleChangeOfMeasurementType (event) {
       this.#type = event.target.value
       this.shadowRoot.querySelector('my-measurement-list').setAttribute('type', this.#type)
       this.shadowRoot.querySelector('my-unit-selector').setAttribute('type', this.#type)
@@ -152,12 +157,18 @@ customElements.define('my-converter',
       this.#convert()
     }
 
+    /**
+     * Converts the measurements to the selected unit.
+     */
     #convert () {
       const unit = this.shadowRoot.querySelector('my-unit-selector').unit
       const merge = this.shadowRoot.querySelector('my-measurement-list').getMerge(unit)
       this.shadowRoot.querySelector('#result').innerText = merge.quantity
     }
 
+    /**
+     * Clears the converter from measurements.
+     */
     #clear () {
       this.shadowRoot.querySelector('my-measurement-list').clear()
       this.#removeUnitSelector()
@@ -165,10 +176,16 @@ customElements.define('my-converter',
       this.#convert()
     }
 
+    /**
+     * Removes the unit selector.
+     */
     #removeUnitSelector () {
       this.shadowRoot.querySelector('my-unit-selector').remove()
     }
 
+    /**
+     * Adds a unit selector.
+     */
     #addUnitSelector () {
       const unitSelector = document.createElement('my-unit-selector')
       unitSelector.setAttribute('type', this.#type)

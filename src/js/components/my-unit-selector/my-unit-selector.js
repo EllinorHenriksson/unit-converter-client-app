@@ -52,6 +52,11 @@ customElements.define('my-unit-selector',
       })
     }
 
+    /**
+     * Gets the selected unit.
+     *
+     * @returns {string} The selected unit.
+     */
     get unit () {
       return this.#unit
     }
@@ -81,10 +86,16 @@ customElements.define('my-unit-selector',
       }
     }
 
+    /**
+     * Removes the options from the select element.
+     */
     #removeOptions () {
       this.shadowRoot.querySelector('select').innerHTML = ''
     }
 
+    /**
+     * Adds options to the select element.
+     */
     #addOptions () {
       const select = this.shadowRoot.querySelector('select')
       const options = this.#generateUnitOptions()
@@ -94,6 +105,11 @@ customElements.define('my-unit-selector',
       this.#unit = this.shadowRoot.querySelector('select').value
     }
 
+    /**
+     * Generates option elements for the select element.
+     *
+     * @returns {HTMLElement[]} The array with option elements.
+     */
     #generateUnitOptions () {
       const options = []
 
@@ -109,6 +125,11 @@ customElements.define('my-unit-selector',
       return options
     }
 
+    /**
+     * Gets the units that correspond to the selected measurement type.
+     *
+     * @returns {string[]} An array with the corresponding units.
+     */
     #getUnits () {
       let units
       if (this.#type === 'length') {
@@ -125,6 +146,11 @@ customElements.define('my-unit-selector',
       return units
     }
 
+    /**
+     * Handles change events on the select element by setting the unit and dispatching a custom event.
+     *
+     * @param {CustomEvent} event The custom event.
+     */
     #handleChange (event) {
       this.#unit = event.target.value
       this.dispatchEvent(new CustomEvent('unitChange', { bubbles: true }))
