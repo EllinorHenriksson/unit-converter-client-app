@@ -6,8 +6,8 @@
  */
 
 import { converter } from '../../../../modules/converter/src/index.js'
-import '../my-measurement'
 import '../my-unit-selector'
+import '../my-measurement-list'
 
 // Define template.
 const template = document.createElement('template')
@@ -29,8 +29,7 @@ template.innerHTML = `
   <form id="measurements">
     <fieldset id="from">
       <legend>From</legend>
-      <my-measurement type="length"></my-measurement>
-      <button id="add">Add</button>
+      <my-measurement-list></my-measurement-list>
     </fieldset>
     <fieldset id="to">
       <legend>To</legend>
@@ -66,11 +65,8 @@ customElements.define('my-converter',
         this.#handleChangeSelect(event)
       })
 
-      this.#addEventListenersToMeasurement(this.shadowRoot.querySelector('my-measurement'))
-
-      this.shadowRoot.querySelector('#add').addEventListener('click', event => {
-        event.preventDefault()
-        this.#addMeasurement()
+      this.shadowRoot.querySelector('my-measurement-list').addEventListener('update', () => {
+        this.#convert()
       })
 
       this.shadowRoot.querySelector('my-unit-selector').addEventListener('unitChange', () => {
@@ -85,86 +81,23 @@ customElements.define('my-converter',
 
     #handleChangeSelect (event) {
       this.#type = event.target.value
-
-      this.shadowRoot.querySelectorAll('my-measurement').forEach(measurement => {
-        measurement.setAttribute('type', this.#type)
-      })
-
+      this.shadowRoot.querySelector('my-measurement-list').setAttribute('type', this.#type)
       this.shadowRoot.querySelector('my-unit-selector').setAttribute('type', this.#type)
 
       this.#convert()
     }
 
-    #addEventListenersToMeasurement (measurement) {
-      measurement.addEventListener('quantityInput', () => {
-        this.#convert()
-      })
-      measurement.addEventListener('unitChange', () => {
-        this.#convert()
-      })
-      measurement.addEventListener('removeMeasurement', event => {
-        this.#removeMeasurement(event.target)
-      })
-    }
-
-    #addMeasurement () {
-      const measurement = document.createElement('my-measurement')
-      measurement.setAttribute('type', this.#type)
-      this.#addEventListenersToMeasurement(measurement)
-      const parent = this.shadowRoot.querySelector('#from')
-      parent.insertBefore(measurement, parent.lastElementChild)
-    }
-
-    #removeMeasurement (measurement) {
-      measurement.remove()
-      if (this.shadowRoot.querySelectorAll('my-measurement').length === 0) {
-        this.#addMeasurement()
-      }
-
-      this.#convert()
-    }
-
     #convert () {
-      const measurementElemets = this.shadowRoot.querySelectorAll('my-measurement')
-      const measurementObjects = []
-      measurementElemets.forEach(measurement => {
-        measurementObjects.push(this.#convertMeasurementToObject(measurement))
-      })
-
-      const newMeasurement = converter.mergeAllInto(measurementObjects, this.shadowRoot.querySelector('my-unit-selector').unit)
-      const result = newMeasurement.quantity
-      this.shadowRoot.querySelector('#result').innerText = result
-    }
-
-    #convertMeasurementToObject (measurement) {
-      let measurementObject
-      if (measurement.getAttribute('type') === 'length') {
-        measurementObject = converter.length(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'time') {
-        measurementObject = converter.time(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'weight') {
-        measurementObject = converter.weight(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'volume') {
-        measurementObject = converter.volume(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'speed') {
-        measurementObject = converter.speed(measurement.quantity, measurement.unit)
-      }
-
-      return measurementObject
+      const unit = this.shadowRoot.querySelector('my-unit-selector').unit
+      const merge = this.shadowRoot.querySelector('my-measurement-list').getMerge(unit)
+      this.shadowRoot.querySelector('#result').innerText = merge.quantity
     }
 
     #clearConverter () {
-      this.#removeMeasurements()
+      this.shadowRoot.querySelector('my-measurement-list').clear()
       this.#removeUnitSelector()
-      this.#addMeasurement()
       this.#addUnitSelector()
       this.#convert()
-    }
-
-    #removeMeasurements () {
-      this.shadowRoot.querySelectorAll('my-measurement').forEach(measurement => {
-        measurement.remove()
-      })
     }
 
     #removeUnitSelector () {
