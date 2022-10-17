@@ -35,7 +35,7 @@ template.innerHTML = `
     font-weight: bold;
   }
 
-  a:hover, a:active {
+  a:hover, a:active, a.active {
     color: orange;
   }
 
@@ -43,7 +43,7 @@ template.innerHTML = `
 
 <div id="my-navbar">
   <div id="nav-logo">
-    <a href="#" id="nav-start-page">Unit Converter</a>
+    <a href="#" id="nav-start-page" class="active">Unit Converter</a>
   </div>
   <div id="nav-links">
     <a href="#" id="nav-convert-page">Convert</a>
@@ -82,7 +82,23 @@ customElements.define('my-navbar',
      */
     #handleClick (event) {
       const targetId = event.target.getAttribute('id')
+      this.#colorClickedLink(targetId)
       this.dispatchEvent(new window.CustomEvent('clickLink', { detail: { targetId }, bubbles: true }))
+    }
+
+    #colorClickedLink (targetId) {
+      this.shadowRoot.getElementById(targetId).classList.add('active')
+
+      if (targetId === 'nav-start-page') {
+        this.shadowRoot.getElementById('nav-convert-page').classList.remove('active')
+        this.shadowRoot.getElementById('nav-compare-page').classList.remove('active')
+      } else if (targetId === 'nav-convert-page') {
+        this.shadowRoot.getElementById('nav-start-page').classList.remove('active')
+        this.shadowRoot.getElementById('nav-compare-page').classList.remove('active')
+      } else if (targetId === 'nav-compare-page') {
+        this.shadowRoot.getElementById('nav-start-page').classList.remove('active')
+        this.shadowRoot.getElementById('nav-convert-page').classList.remove('active')
+      }
     }
   }
 )

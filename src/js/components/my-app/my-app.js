@@ -58,6 +58,11 @@ customElements.define('my-app',
       })
     }
 
+    /**
+     * Handles click events from the navbar component.
+     *
+     * @param {*} event 
+     */
     #handleClickLink (event) {
       const targetId = event.detail.targetId
 
