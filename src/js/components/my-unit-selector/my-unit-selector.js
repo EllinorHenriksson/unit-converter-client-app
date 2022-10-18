@@ -6,7 +6,7 @@
  */
 
 import helper from '../../helper'
-import { converter } from '../../../../modules/converter/src'
+import { MeasurementType } from '../../measurementType'
 
 // Define template.
 const template = document.createElement('template')
@@ -33,15 +33,27 @@ customElements.define('my-unit-selector',
    * Represents a my-unit-selector element.
    */
   class extends HTMLElement {
+    /**
+     * The measurement type of the units.
+     *
+     * @type {MeasurementType}
+     */
     #type
+
+    /**
+     * The selected unit.
+     *
+     * @type {string}
+     */
     #unit
+
     /**
      * Creates an instance of the current type.
      */
     constructor () {
       super()
 
-      this.#type = 'length'
+      this.#type = MeasurementType.LENGTH
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
@@ -113,7 +125,7 @@ customElements.define('my-unit-selector',
     #generateUnitOptions () {
       const options = []
 
-      const units = this.#getUnits()
+      const units = helper.getUnits(this.#type)
 
       for (const unit of units) {
         const option = document.createElement('option')
@@ -123,27 +135,6 @@ customElements.define('my-unit-selector',
       }
 
       return options
-    }
-
-    /**
-     * Gets the units that correspond to the selected measurement type.
-     *
-     * @returns {string[]} An array with the corresponding units.
-     */
-    #getUnits () {
-      let units
-      if (this.#type === 'length') {
-        units = converter.lengthUnits
-      } else if (this.#type === 'time') {
-        units = converter.timeUnits
-      } else if (this.#type === 'weight') {
-        units = converter.weightUnits
-      } else if (this.#type === 'volume') {
-        units = converter.volumeUnits
-      } else if (this.#type === 'speed') {
-        units = converter.speedUnits
-      }
-      return units
     }
 
     /**

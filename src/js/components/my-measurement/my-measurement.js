@@ -7,6 +7,7 @@
 
 import helper from '../../helper'
 import '../my-unit-selector'
+import { MeasurementType } from '../../measurementType'
 
 const DELETE = new URL('./images/delete.png', import.meta.url)
 
@@ -76,7 +77,18 @@ customElements.define('my-measurement',
    * Represents a my-mesurement element.
    */
   class extends HTMLElement {
+    /**
+     * The measurement type.
+     *
+     * @type {MeasurementType}
+     */
     #type
+
+    /**
+     * The quantity of the measurement.
+     *
+     * @type {number}
+     */
     #quantity
 
     /**
@@ -85,7 +97,7 @@ customElements.define('my-measurement',
     constructor () {
       super()
 
-      this.#type = 'length'
+      this.#type = MeasurementType.LENGTH
       this.#quantity = 0
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.

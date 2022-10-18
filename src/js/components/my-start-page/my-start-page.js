@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { converter } from '../../../../modules/converter/src/index.js'
+import { MeasurementType } from '../../measurementType'
 
 // Define template.
 const template = document.createElement('template')
@@ -44,7 +44,7 @@ template.innerHTML = `
   <h1>Unit Converter</h1>
   <h2>Welcome to Unit Converter</h2>
   <p>- a tool for converting and comparing measurements of different units.</p>
-  <p>Supported measurrement types:<p>
+  <p>Supported measurement types:<p>
   <ul></ul>
 </div>
 `
@@ -62,20 +62,16 @@ customElements.define('my-start-page',
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
-
-      // Add event listeners.
-      //
     }
 
     /**
      * Appends the available measurement types to a list when the web component is mounted to the DOM.
      */
     connectedCallback () {
-      const measurementTypes = converter.measurementTypes
       const list = this.shadowRoot.querySelector('ul')
-      for (const type of measurementTypes) {
+      for (const type in MeasurementType) {
         const item = document.createElement('li')
-        item.innerText = type
+        item.innerText = MeasurementType[type]
         list.appendChild(item)
       }
     }

@@ -1,4 +1,9 @@
-import { converter } from '../../modules/converter/src'
+import { MeasurementType } from './measurementType'
+import { LengthUnit } from './units/lengthUnit'
+import { TimeUnit } from './units/timeUnit'
+import { WeightUnit } from './units/weightUnit'
+import { VolumeUnit } from './units/volumeUnit'
+import { SpeedUnit } from './units/speedUnit'
 
 /**
  * Represents a helper module with various helper methods.
@@ -7,12 +12,15 @@ class Helper {
   /**
    * Validates a measurement type.
    *
-   * @param {string} type The measurement type (e.g. "length").
+   * @param {MeasurementType} type The measurement type (e.g. "length").
    * @throws {Error} Throws an error if the passed value is not one of the allowed types (length, time, weight, volume, speed)
    */
   validateMeasurementType (type) {
-    if (type !== 'length' && type !== 'time' && type !== 'weight' && type !== 'volume' && type !== 'speed') {
-      throw new Error('The attribute must be set to a string representing the available measurement types: length, time, weight, volume or speed. ')
+    const types = Object.values(MeasurementType).join(', ')
+    const message = `The type must be a string representing one of the available measurement types: ${types}`
+
+    if (!types.includes(type)) {
+      throw new Error(message)
     }
   }
 
@@ -20,7 +28,7 @@ class Helper {
    * Validates a unit that must be of a valid measurement type.
    *
    * @param {string} unit The unit to validate.
-   * @param {string} type The measurement type.
+   * @param {MeasurementType} type The measurement type.
    * @throws {Error} Throws an error if the unit or the type aren't accurate.
    */
   validateUnit (unit, type) {
@@ -34,21 +42,21 @@ class Helper {
   /**
    * Gets the units of the passed measurement type.
    *
-   * @param {string} type The measurement type (e.g. "length").
+   * @param {MeasurementType} type The measurement type (e.g. "length").
    * @returns {string[]} The units of the measurement type.
    */
   getUnits (type) {
     let units
-    if (type === 'length') {
-      units = converter.lengthUnits
-    } else if (type === 'time') {
-      units = converter.timeUnits
-    } else if (type === 'weight') {
-      units = converter.weightUnits
-    } else if (type === 'volume') {
-      units = converter.volumeUnits
-    } else if (type === 'speed') {
-      units = converter.speedUnits
+    if (type === MeasurementType.LENGTH) {
+      units = Object.values(LengthUnit)
+    } else if (type === MeasurementType.TIME) {
+      units = Object.values(TimeUnit)
+    } else if (type === MeasurementType.WEIGHT) {
+      units = Object.values(WeightUnit)
+    } else if (type === MeasurementType.VOLUME) {
+      units = Object.values(VolumeUnit)
+    } else if (type === MeasurementType.SPEED) {
+      units = Object.values(SpeedUnit)
     }
     return units
   }

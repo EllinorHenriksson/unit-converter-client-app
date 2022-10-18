@@ -1,6 +1,6 @@
 # Test report
 
-Test date: 2022-10-18
+Test date: 2022-10-18   
 Performed by: Ellinor Henriksson
 
 | Test | Result | Comment |

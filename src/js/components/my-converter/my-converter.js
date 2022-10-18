@@ -7,6 +7,8 @@
 
 import '../my-unit-selector'
 import '../my-measurement-list'
+import { MeasurementType } from '../../measurementType'
+import helper from '../../helper'
 
 // Define template.
 const template = document.createElement('template')
@@ -112,6 +114,11 @@ customElements.define('my-converter',
    * Represents a my-converter element.
    */
   class extends HTMLElement {
+    /**
+     * The selected measurement type (e.g. "length")
+     *
+     * @type {MeasurementType}
+     */
     #type
 
     /**
@@ -120,7 +127,7 @@ customElements.define('my-converter',
     constructor () {
       super()
 
-      this.#type = 'length'
+      this.#type = MeasurementType.LENGTH
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
@@ -150,6 +157,7 @@ customElements.define('my-converter',
      * @param {InputEvent} event The event object.
      */
     #handleChangeOfMeasurementType (event) {
+      helper.validateMeasurementType(event.target.value)
       this.#type = event.target.value
       this.shadowRoot.querySelector('my-measurement-list').setAttribute('type', this.#type)
       this.shadowRoot.querySelector('my-unit-selector').setAttribute('type', this.#type)

@@ -5,6 +5,8 @@
  * @version 1.0.0
  */
 
+import { MeasurementType } from '../../measurementType'
+
 import helper from '../../helper'
 import '../my-measurement-list'
 
@@ -111,6 +113,11 @@ customElements.define('my-comparer',
    * Represents a my-comparer element.
    */
   class extends HTMLElement {
+    /**
+     * The selected measurement type (e.g. "length").
+     *
+     * @type {MeasurementType}
+     */
     #type
 
     /**
@@ -119,7 +126,7 @@ customElements.define('my-comparer',
     constructor () {
       super()
 
-      this.#type = 'length'
+      this.#type = MeasurementType.LENGTH
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
@@ -147,6 +154,7 @@ customElements.define('my-comparer',
      * @param {InputEvent} event The event object.
      */
     #handleChangeOfMeasurementType (event) {
+      helper.validateMeasurementType(event.target.value)
       this.#type = event.target.value
       this.shadowRoot.querySelectorAll('my-measurement-list').forEach(list => {
         list.setAttribute('type', this.#type)

@@ -8,6 +8,7 @@
 import '../my-measurement'
 import helper from '../../helper'
 import { converter } from '../../../../modules/converter/src'
+import { MeasurementType } from '../../measurementType'
 
 const ADD = new URL('./images/add.png', import.meta.url)
 
@@ -41,14 +42,20 @@ customElements.define('my-measurement-list',
    * Represents a my-measurement-list element.
    */
   class extends HTMLElement {
+    /**
+     * The type of the measurements contained in the list.
+     *
+     * @type {MeasurementType}
+     */
     #type
+
     /**
      * Creates an instance of the current type.
      */
     constructor () {
       super()
 
-      this.#type = 'length'
+      this.#type = MeasurementType.LENGTH
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
