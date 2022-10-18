@@ -8,4 +8,4 @@
 [Test report](./test-report.md)   
 
 ## Code comment
-During developement it is possible to import the converter and use the method get measurement types (), but not when building the application. This is a unresolved bug. However, the appliaction doesn't use this method at the moment
+The application works as it should and there are no known bugs at the moment.
