@@ -3,7 +3,6 @@ import { LengthUnit } from './units/lengthUnit'
 import { TimeUnit } from './units/timeUnit'
 import { WeightUnit } from './units/weightUnit'
 import { VolumeUnit } from './units/volumeUnit'
-import { SpeedUnit } from './units/speedUnit'
 
 /**
  * Represents a helper module with various helper methods.
@@ -13,7 +12,7 @@ class Helper {
    * Validates a measurement type.
    *
    * @param {MeasurementType} type The measurement type (e.g. "length").
-   * @throws {Error} Throws an error if the passed value is not one of the allowed types (length, time, weight, volume, speed)
+   * @throws {Error} Throws an error if the passed value is not one of the allowed types (length, time, weight, volume)
    */
   validateMeasurementType (type) {
     const types = Object.values(MeasurementType).join(', ')
@@ -55,8 +54,6 @@ class Helper {
       units = Object.values(WeightUnit)
     } else if (type === MeasurementType.VOLUME) {
       units = Object.values(VolumeUnit)
-    } else if (type === MeasurementType.SPEED) {
-      units = Object.values(SpeedUnit)
     }
     return units
   }

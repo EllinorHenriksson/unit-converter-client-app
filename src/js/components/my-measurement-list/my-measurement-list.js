@@ -157,16 +157,14 @@ customElements.define('my-measurement-list',
      */
     #convertMeasurementToObject (measurement) {
       let measurementObject
-      if (measurement.getAttribute('type') === 'length') {
+      if (measurement.getAttribute('type') === MeasurementType.LENGTH) {
         measurementObject = converter.length(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'time') {
+      } else if (measurement.getAttribute('type') === MeasurementType.TIME) {
         measurementObject = converter.time(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'weight') {
+      } else if (measurement.getAttribute('type') === MeasurementType.WEIGHT) {
         measurementObject = converter.weight(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'volume') {
+      } else if (measurement.getAttribute('type') === MeasurementType.VOLUME) {
         measurementObject = converter.volume(measurement.quantity, measurement.unit)
-      } else if (measurement.getAttribute('type') === 'speed') {
-        measurementObject = converter.speed(measurement.quantity, measurement.unit)
       }
 
       return measurementObject

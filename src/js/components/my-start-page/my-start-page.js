@@ -45,7 +45,12 @@ template.innerHTML = `
   <h2>Welcome to Unit Converter</h2>
   <p>- a tool for converting and comparing measurements of different units.</p>
   <p>Supported measurement types:<p>
-  <ul></ul>
+  <ul>
+    <li>length</li>
+    <li>time</li>
+    <li>weight</li>
+    <li>volume</li>
+  </ul>
 </div>
 `
 
@@ -62,25 +67,6 @@ customElements.define('my-start-page',
 
       // Attach a shadow DOM tree to this element and append the template to the shadow root.
       this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
-    }
-
-    /**
-     * Appends the available measurement types to a list when the web component is mounted to the DOM.
-     */
-    connectedCallback () {
-      const list = this.shadowRoot.querySelector('ul')
-      for (const type in MeasurementType) {
-        const item = document.createElement('li')
-        item.innerText = MeasurementType[type]
-        list.appendChild(item)
-      }
-    }
-
-    /**
-     * Removes the measurement types from the list when the web component is unmounted.
-     */
-    disconnectedCallback () {
-      this.shadowRoot.querySelector('ul').innerHTML = ''
     }
   }
 )

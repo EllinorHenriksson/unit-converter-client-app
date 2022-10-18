@@ -1,5 +1,5 @@
 # Unit Converter
-Unit Converter is a SPA web application written in vanilla JavaScript using custom web components that lets the end-user convert and compare measurements of the type length, time, weight, volume and speed. It is developed with the support of Vite, a tool that sets up a developement server and offers build functionality. It also depends on the module [converter](https://github.com/EllinorHenriksson/converter).
+Unit Converter is a SPA web application written in vanilla JavaScript using custom web components that lets the end-user convert and compare measurements of the type length, time, weight and volume. It is developed with the support of Vite, a tool that sets up a developement server and offers build functionality. It also depends on the module [converter](https://github.com/EllinorHenriksson/converter).
 
 ![Start page](./images/start-page.png)
 

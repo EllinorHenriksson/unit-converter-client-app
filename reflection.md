@@ -28,6 +28,7 @@ Bild: Vertikal formattering av metoderna i en klass (unit-converter/src/js/compo
 Överlag är koden skriven ur ett så objektorienterat perspektiv som möjligt, även om den är skriven i JavaScript. Klasserna kapslar in så mycket information som möjligt genom att hålla fält och metoder privata och endast tilldela fälten "accessors" och "mutators" om det verkligen behövs. Jag måste erkänna att det är mer naturligt att skriva objektorienterat i Java, och att jag stött på vissa svårigheter när jag jobbat med klasser och objekt i JavaScript. Exemplevis implementerade jag abstraktion av en superklass - en funktionalitet som inte finns inbyggd i JavaScript - genom att kasta undantag i konstruktorn (se bild).
 
 ![Abstrakt klass](./images/abstract-class.png)
+Bild: (src/measurements/singleMeasurement.js)
 
 ## Chapter 7: Error Handling
 I min kod kastar jag undantag med särskilda, beskrivande felmeddelanden, framförallt i valideringsmtoderna. Jag skickar inte tillbaka felkoder. Jag har inte skapat egna klasser för untantagen då jag inte bedömt det nödvändigt för tydligheten. Undantagen som kastas är av de redan inbyggda typerna Error, TypeError och RangeError - i kombination med tydliga felmeddelanden ger de tillräcklig information till användaren. Undantagen kastas i samband med att användaren skickar in input i form av argument till metoderna, och kan därför fångas upp och hanteras i samband med dessa anrop. 
@@ -36,9 +37,19 @@ I min kod kastar jag undantag med särskilda, beskrivande felmeddelanden, framf�
 Bild: Exempel på felmeddelande (converter/src/validator.js)
 
 ## Chapter 8: Boundaries
+Modulen används på så få ställen som möjligt i koden. Hade jag skrivit koden i Java hade jag kunnat implementera ett interface för modulen. Ett alternativ i JavaScript hade kanske kunnat vara att skapa en klass som utgör gränsen mellan applikationens kod och modulens kod, men detta är ovant för mig eftersom jag under utbildningen vant mig att använda t.ex. npm moduler lite varstans i koden. Jag tycker att det tillvägagångssättet har fungerat bra.
 
 ## Chapter 9: Unit Tests
+I modulen testar jag koden med hjälp av automatiska enhetstester som jag skrivit i ramverket Jest. Testerna täcker väldigt stora delar av koden och gör det därför enkelt att förändra koden utan att riskera att buggar uppstår. Så länge en förändring har ett motsvarande test och alla tester går igenom är det sannolikt att hela koden fungerar. Testerna är korta och testar endast ett koncept var, vilket gör testerna lättlästa och lätthanterade. Testerna är också oberoende av varandra, vilket är en av FIRST-reglerna.
+
+![Kort test av ett koncept](./images/small-test.png)
+Bild: (converter/test/length.test.js)
 
 ## Chapter 10: Classes
+Klasserna är skrivna i en vertikal ordning där fälten deklareras högst upp, följt av publika metoder vilka följs av privata metoder som den publika metoden anropar, enligt tidningsprincipen. Fälten, liksom metoder som endast används av klassen själv, är privata för att främja inkapsling. Klasserna är aldrig större än ca 200 rader kod, både för att de ska vara översiktliga men också för att de inte ska få för många ansvarsområden. Jag tycker det kan vara svårt som relativ nybörjare inom objektorienterad mjukvarudesign att designa klasser som håller sig till SRP (single responsibility principle), men jag tycker att jag har gjort ett gott försök till att bryta ut koden i så många lämpliga klasser som möjligt. I applikationen representeras klasserna av webbkomponenter. 
 
 ## Chapter 11: Systems
+Arkitekturen i applikationen är gjord enligt ett rekommenderat upplägg där webbkomponenter läggs i separata mappar i en gemensam övermapp. En huvudkomponent - i detta fall my-app - importeras av en javascript-fil som i sig importeras i det huvudsakliga html-dokumentet för webbapplikationen. Övriga webbkomponenter importeras av andra webbkomponenter som använder sig av dem i sina egna DOM-strukturer. Genom att följa denna struktur blir det enkelt att fortsätta jobba med applikationen och lägga till nya webbkomponenter/funktionalitet. Jag har även förökt dela upp modulen i mappar som representerar olika delar av systemet/grupper av klasser.
+
+![JavaScript directory](./images/js-directory.png)
+Bild: JavaScrip-katalogen i applikationen innehållande bl.a. webbkomponenter (unit-converter/src/js/)

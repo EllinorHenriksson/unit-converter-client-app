@@ -90,7 +90,6 @@ template.innerHTML = `
       <option value="time">Time</option>
       <option value="weight">Weight</option>
       <option value="volume">Volume</option>
-      <option value="speed">Speed</option>
     </select>
   </form>
   <form id="measurements">
